@@ -1,43 +1,28 @@
-'use strict'; // to prevent us from overwriting important variables
-const c = 'constant'; // a constant value, assignment to c is no longer allowed
-let v = 'variable'; // a primitive variable
-let a = [1, 2, 3, false]; // an array
-let o = { // an object
-'key1': 1,
-'key2': 'something'
-};
+'use strict';
 
-console.log(c);
-console.log(v);
-console.log(a);
-console.log(o);
-console.log(o['key1']);
-console.log(o.key2);
+let barContainer = d3.select('div#bar1');
 
-function one(a, b) {
-    return a+b;
-}
+// let barSvg = barContainer.append('svg')
+// .attr('width', 800)
+// .attr('height', 500)
+// .attr('class', 'barchart');
 
-let two = function(a, b) {
-    return a+b;
-}
+let barSvg = barContainer.append('svg')
+.attr('width', 800)
+.attr('height', 500)
+.classed('barchart', true);
 
-let three = (a,b) => a+b;
+let cities = [
+    {city: 'Edinburgh', pop: 506000, area: 119, alt: 47},
+    {city: 'Dubai', pop: 3604000, area: 1610, alt: 5},
+    {city: 'Putrajaya', pop: 109000, area: 49, alt: 38},
+    {city: 'Qingdao', pop: 10071000, area: 11228, alt: 25},
+    {city: 'Lagos', pop: 8048000, area: 1171, alt: 41},
+    {city: 'Ottawa', pop: 1017000, area: 2790, alt: 70}
+]
 
-import {GCD} from './math.js';
-console.log(GCD(84, 52));
+let barGroup = barSvg.append('g');
 
-import {factorial as myFactorial} from './math.js';
-console.log(myFactorial(5));
+let bars = barGroup.selectAll('rect')
+.data(cities, d=>d.city);
 
-import Book from './Book.js';
-const shakespeare = new Book('Hamlet', 'William Shakespeare', true);
-shakespeare.borrow();
-shakespeare.returnBook();
-
-// make app the top-level selection
-let app = d3.select('div#app');
-// add a section to app
-let sec1 = app.append('div');
-// create empty selection for paragraphs
-let pars = sec1.selectAll('p');
