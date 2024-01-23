@@ -15,6 +15,9 @@ p#myId{
 } */
 
 @import 'vars.css';
+body {
+    background-color: #c8d8f0cc; /* Replace with your desired background color */
+}
 h1{
 color: var(--main-color);
 font-family: var(--font-title);
