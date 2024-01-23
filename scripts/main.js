@@ -34,3 +34,10 @@ import Book from './Book.js';
 const shakespeare = new Book('Hamlet', 'William Shakespeare', true);
 shakespeare.borrow();
 shakespeare.returnBook();
+
+// make app the top-level selection
+let app = d3.select('div#app');
+// add a section to app
+let sec1 = app.append('div');
+// create empty selection for paragraphs
+let pars = sec1.selectAll('p');
