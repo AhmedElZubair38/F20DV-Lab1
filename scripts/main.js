@@ -45,4 +45,4 @@ let bar1 = new BarChart('div#bar1', 800, 750);
 
 let citiesElevation = cities.map(d=>[d.city, d.alt]);
 
-bar1.render(citiesElevation); 
+bar1.render(citiesElevation);
