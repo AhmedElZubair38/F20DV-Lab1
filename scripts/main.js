@@ -46,3 +46,9 @@ let bar1 = new BarChart('div#bar1', 800, 750);
 let citiesElevation = cities.map(d=>[d.city, d.alt]);
 
 bar1.render(citiesElevation);
+
+let data = [['a',12],['b',18],['c',25],['d',3]];
+data.map(d=>d[0]); // ['a','b','c','d']
+console.log(d3.min(data, d=>d[1])); // 3
+console.log(d3.max(data, d=>d[1])); // 25
+console.log(d3.extent(data, d=>d[1])); // [3,25]
