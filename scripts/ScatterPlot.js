@@ -1,7 +1,7 @@
-export default class BarChart {
+export default class ScatterPlot {
 
     width; height; margin;
-    svg; chart; bars; axisX; axisY; labelX; labelY;
+    svg; chart; dots; axisX; axisY; labelX; labelY;
     scaleX; scaleY;
     data;
 
@@ -12,13 +12,13 @@ export default class BarChart {
     this.margin = margin;
 
     this.svg = d3.select(container).append('svg')
-        .classed('barchart', true)
+        .classed('scatterplot', true)
         .attr('width', this.width).attr('height', this.height);
     this.chart = this.svg.append('g')
         .attr('transform',
         `translate(${this.margin[2]},${this.margin[0]})`);
 
-    this.bars = this.chart.selectAll('rect.bar');
+    this.dots = this.chart.selectAll('circle.dot');
     this.axisX = this.svg.append('g')
         .attr('transform',
         `translate(${this.margin[2]},${this.height-this.margin[1]})`);
@@ -53,33 +53,38 @@ export default class BarChart {
         this.axisX.call(axisGenX);
         this.axisY.call(axisGenY);
     }
-        
-    #updateBars(){
 
-        this.bars = this.bars
+    #updateDots(){
+
+        this.dots = this.chart.selectAll('circle.dot')  // Select circles again
         .data(this.data, d=>d[0])
-        .join('rect')
-        .classed('bar', true)
-        .attr('x', d=>this.scaleX(d[0]))
-        .attr('height', d=>this.scaleY(0)-this.scaleY(d[1]))
-        .attr('width', this.scaleX.bandwidth())
-        .attr('y', d=>this.scaleY(d[1]));
+        .join('circle')
+        .classed('dot', true)
+        .attr('cx', d=>this.scaleX(d[0]) + this.scaleX.bandwidth()/2 )
+        .attr('cy', d=>this.scaleY(d[1]) + this.margin[0])
+        .attr('r', 9);
     }
-        
-    render(dataset){
 
-        this.data = dataset;
-        this.#updateScales();
-        this.#updateBars();
-        this.#updateAxes();
-        return this;
+    #updateLabels(){
+
+        this.labelX.text('City');
+        this.labelY.text('Elevation (m)');
     }
-        
+
+    render(data){
+
+        this.data = data;
+        this.#updateScales();
+        this.#updateAxes();
+        this.#updateDots();
+        this.#updateLabels();
+    }
+
     setLabels(labelX='categories', labelY='values'){
 
         this.labelX.text(labelX);
         this.labelY.text(labelY);
         return this;
     }
-    
+
 }

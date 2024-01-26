@@ -1,0 +1,9 @@
+svg.scatterplot {
+    border: solid 3px #e41290;
+}
+
+svg.scatterplot circle.dot{
+    fill: #58d33f;
+    stroke: #f30de0;
+    stroke-width: 1px;
+}
