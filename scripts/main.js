@@ -41,20 +41,22 @@ let cities = [
     {city: 'Ottawa', pop: 1017000, area: 2790, alt: 70}
 ]
 
-let bar1 = new BarChart('div#bar1', 800, 750);
+// let bar1 = new BarChart('div#bar1', 800, 750);
+
+let bar1 = new BarChart('div#bar1', 700, 700, [10, 40, 45, 40]);
 
 let citiesElevation = cities.map(d=>[d.city, d.alt]);
 
 bar1.render(citiesElevation);
 
-let data = [['a',12],['b',18],['c',25],['d',3]];
-data.map(d=>d[0]); // ['a','b','c','d']
-console.log(d3.min(data, d=>d[1])); // 3
-console.log(d3.max(data, d=>d[1])); // 25
-console.log(d3.extent(data, d=>d[1])); // [3,25]
-console.log(data.map(d=>d[1]).reverse()); // [3,25,18,12]
+// let data = [['a',12],['b',18],['c',25],['d',3]];
+// data.map(d=>d[0]); // ['a','b','c','d']
+// console.log(d3.min(data, d=>d[1])); // 3
+// console.log(d3.max(data, d=>d[1])); // 25
+// console.log(d3.extent(data, d=>d[1])); // [3,25]
+// console.log(data.map(d=>d[1]).reverse()); // [3,25,18,12]
 
-let mySelection = d3.select("div#bar1");
+// let mySelection = d3.select("div#bar1");
 // let s1 = d3.scaleLinear([0,500],[0,400]);
 // let axis = d3.axisBottom(s1);
 // mySelection.call(axis);
@@ -102,4 +104,6 @@ timeBarSvg.append("g").append("svg")
     .call(timeAxis);
 
 
-    
+
+
+
