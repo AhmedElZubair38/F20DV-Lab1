@@ -52,3 +52,54 @@ data.map(d=>d[0]); // ['a','b','c','d']
 console.log(d3.min(data, d=>d[1])); // 3
 console.log(d3.max(data, d=>d[1])); // 25
 console.log(d3.extent(data, d=>d[1])); // [3,25]
+console.log(data.map(d=>d[1]).reverse()); // [3,25,18,12]
+
+let mySelection = d3.select("div#bar1");
+// let s1 = d3.scaleLinear([0,500],[0,400]);
+// let axis = d3.axisBottom(s1);
+// mySelection.call(axis);
+
+// let s2 = d3.scalePoint(['A','B','C','D','F','E'],[0,400]);
+// let axis2 = d3.axisRight(s2);
+// mySelection.call(axis2);
+
+// let s3 = d3.scaleLog([1,1000], [0,400]);
+// let axis3 = d3.axisLeft(s3);
+// mySelection.call(axis3);
+
+// let dates = [new Date(2016, 0, 1), new Date(2022, 0, 1)];
+// let dateDomain = d3.extent(dates);
+// let s4 = d3.scaleTime().domain(dateDomain).range([0, 400]);
+// let axis4 = d3.axisTop(s4);
+
+// mySelection.append('svg')
+// .attr("width", 500) // Adjust the width based on your layout
+// .attr("height", 50) // Adjust the height based on your layout
+// .append("g")
+// .attr("transform", "translate(20, 30)")
+// .call(axis4);
+
+// Create an SVG container for the time bar
+let timeBarSvg = d3.select("div#bar2");
+
+// Sample dates for the time bar
+let dates = [new Date(2016, 0, 1), new Date(2022, 0, 1)];
+
+// Use d3.extent to get the minimum and maximum dates
+let dateDomain = d3.extent(dates);
+
+// Create a time scale with the correct domain
+let timeScale = d3.scaleTime().domain(dateDomain).range([0, 500]);
+
+// Create the time axis
+let timeAxis = d3.axisBottom(timeScale);
+
+// Append the time axis to the time bar
+timeBarSvg.append("g").append("svg")
+    .attr("height", 50)
+    .attr("width", 900)
+    .attr("transform", "translate(0, 30)") // Adjust the translation based on your layout
+    .call(timeAxis);
+
+
+    
