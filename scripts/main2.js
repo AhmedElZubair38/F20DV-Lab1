@@ -35,3 +35,5 @@ console.log(data[0]);
 // print the revune data column values
 console.log(data.map(d => d.positive_profit));
 console.log(d3.rollup(data, v => v.length, d => d.positive_profit));
+
+// tutorial 7 
