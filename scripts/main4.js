@@ -68,3 +68,9 @@ if (query6a > query6b) {
 } else console.log("industry made more profit after 2015")
 
 // question 7: What’s the average budget of drama movies with a rating above 70% on website C?
+let query7 = data.filter(d => d.genre == "Drama" && d.ratings_C > 70).map(d => d.budget)
+
+let total = query7.reduce((acc, sum) => acc + sum);
+let count = query7.length;
+let average = total/count;
+console.log(average);
