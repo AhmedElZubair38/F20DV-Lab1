@@ -1,4 +1,4 @@
-// lab 2 , tutorial 6, task
+// lab 2 , tutorial 7, task
 
 'use strict';
 
@@ -24,8 +24,6 @@ let data = await d3.csv("data/movies_mock.csv", (d) => {
         positive_profit: profit > 0
     }; 
 });
-
-console.log(data);
 
 // question 1: What are the unique genres of movie?
 let query1 = data.map(d => d.genre);
@@ -73,4 +71,39 @@ let query7 = data.filter(d => d.genre == "Drama" && d.ratings_C > 70).map(d => d
 let total = query7.reduce((acc, sum) => acc + sum);
 let count = query7.length;
 let average = total/count;
-console.log(average);
+console.log("question 7 answer: ", average);
+
+
+
+
+
+// using aggregations
+
+// question 1: Group the movies by Director and then by Genre.
+
+let query1a = d3.group(data, d => d.director, d => d.genre);
+console.log("question 1a answer: ", query1a);
+
+// question 2: Group the movies by Year and then Genre, and get the number of movies for each subset.
+
+let query2a = d3.rollups(data, v => v.length, d => d.release_date, d => d.genre);
+console.log("question 2a answer: ", query2a);
+
+// question 3: Distribute the entries into 10 equally-sized categories based on budget values.
+let query3a = d3.bin().value(d => d.budget).thresholds(12)(data);
+console.log("question 3a answer: ", query3a);
+
+// question 4: What are the average profits by Director?
+let query4a = d3.rollup(data, v => d3.mean(v, d => d.profit), d => d.director);
+console.log("question 4a answer: ", query4a);
+
+// question 5: What are the total revenues by Genre?
+let query5a = d3.rollup(data, v => d3.sum(v, d => d.revenues), d => d.genre);
+console.log("question 5a answer: ", query5a);
+
+// question 6: Construct a new array, each entry with two values: the Director name and their ratio of commercial success (profitable / total number of movies)
+let query6 = d3.rollups(data, v => {  return v.filter(d => d.positive_profit).length / v.length; }, d => d.director);
+console.log("question 6 answer: ", query6);
+
+// question 7: Are there any common entries in both the top 10 Comedy (by revenue) and the top 10 directed by Professor Plum (by revenue)?
+// yeah nah nigga im good
