@@ -2,9 +2,15 @@ svg.barchart {
     border: solid 3px #f30de0;
 }
 
-svg.barchart rect.bar{
+svg.barchart rect.bar {
     fill: #58d33f;
     stroke: #f30de0;
     stroke-width: 3px;
 }
 
+svg.barchart rect.bar.highlighted{
+
+    fill: #3d902d;
+    stroke: #a40b98;
+    stroke-width: 3px;
+}

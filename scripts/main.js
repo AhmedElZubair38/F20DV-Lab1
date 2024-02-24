@@ -5,6 +5,7 @@ import BarChart from './BarChart.js';
 import ScatterPlot from './ScatterPlot.js';
 
 let cities = [
+    
     {city: 'Edinburgh', pop: 506000, area: 119, alt: 47},
     {city: 'Dubai', pop: 3604000, area: 1610, alt: 5},
     {city: 'Putrajaya', pop: 109000, area: 49, alt: 38},

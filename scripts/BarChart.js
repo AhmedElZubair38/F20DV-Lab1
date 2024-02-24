@@ -63,7 +63,20 @@ export default class BarChart {
         .attr('x', d=>this.scaleX(d[0]))
         .attr('height', d=>this.scaleY(0)-this.scaleY(d[1]))
         .attr('width', this.scaleX.bandwidth())
-        .attr('y', d=>this.scaleY(d[1]));
+        .attr('y', d=>this.scaleY(d[1]))
+        .on('mouseover', (event, datum)=>{
+            
+            console.log(datum);
+            d3.select(event.target).classed('highlighted', true);
+        })
+        .on('mouseout', (event, datum)=>{
+            
+            console.log(datum);
+            d3.select(event.target).classed('highlighted', false);
+        });
+
+        this.bars.selectAll('title').data(d=>[d]).join('title').text(d=>`${d[0]}: ${d[1]}`);
+
     }
         
     render(dataset){
