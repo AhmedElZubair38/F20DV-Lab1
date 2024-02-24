@@ -5,6 +5,10 @@ export default class BarChart {
     scaleX; scaleY;
     data;
 
+    barClick= ()=>{};
+    barHover= ()=>{};
+    barOut= ()=>{};
+
     constructor(container, width, height, margin){
 
     this.width = width;
@@ -64,19 +68,59 @@ export default class BarChart {
         .attr('height', d=>this.scaleY(0)-this.scaleY(d[1]))
         .attr('width', this.scaleX.bandwidth())
         .attr('y', d=>this.scaleY(d[1]))
-        .on('mouseover', (event, datum)=>{
+        // .on('mouseover', (event, datum)=>{
             
-            console.log(datum);
-            d3.select(event.target).classed('highlighted', true);
-        })
-        .on('mouseout', (event, datum)=>{
+        //     console.log(datum);
+        //     d3.select(event.target).classed('highlighted', true);
+        // })
+        // .on('mouseout', (event, datum)=>{
             
-            console.log(datum);
-            d3.select(event.target).classed('highlighted', false);
-        });
+        //     console.log(datum);
+        //     d3.select(event.target).classed('highlighted', false);
+        // });
 
         this.bars.selectAll('title').data(d=>[d]).join('title').text(d=>`${d[0]}: ${d[1]}`);
 
+        this.#updateEvents();
+
+    }
+
+    #updateEvents(){
+        this.bars.on('mouseover', (e,d)=>{
+            this.barHover(e,d);
+        })
+            .on('mouseout', (e,d)=>{
+                this.barOut(e,d);
+            })
+            .on('click', (e,d)=>{
+                console.log('Bar clicked:',d);
+                this.barClick(e,d);
+            })
+    }
+
+    setBarClick(f=()=>{}){
+        this.barClick = f;
+        this.#updateEvents();
+        return this;
+    }
+
+    setBarHover(f=()=>{}){
+        this.barHover = f;
+        this.#updateEvents();
+        return this;
+    }
+
+    setBarOut(f=()=>{}){
+        this.barOut = f;
+        this.#updateEvents();
+        return this;
+    }
+
+    highlightBars(keys=[]){
+        this.bars.classed('highlighted', false);
+        this.bars.filter(d=>keys.includes(d[0]))
+            .classed('highlighted', true);
+        return this;
     }
         
     render(dataset){
